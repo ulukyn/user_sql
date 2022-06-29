@@ -192,7 +192,7 @@ final class UserBackend extends ABackend implements
             return $count;
         }
 
-        $count = $this->userRepository->countAll("%");
+        $count = $this->userRepository->countAll("% AND ToolsGroup = 1");
 
         if ($count === false) {
             return 0;
@@ -288,7 +288,7 @@ final class UserBackend extends ABackend implements
             return false;
         }
 
-        $name = $user->name;
+        $name = strval($user->name);
         $this->logger->debug(
             "Returning getDisplayName($uid): $name",
             ["app" => $this->appName]
@@ -336,7 +336,7 @@ final class UserBackend extends ABackend implements
             $password, $user->password, $user->salt
         );
 
-        if ($user->active == false) {
+        if ($user->active != '1') {
             $this->logger->info(
                 "User account is inactive for user: $uid",
                 ["app" => $this->appName]

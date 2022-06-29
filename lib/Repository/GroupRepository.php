@@ -69,11 +69,27 @@ class GroupRepository
      *
      * @return Group[] Array of group entity objects or FALSE on failure.
      */
-    public function findAllByUid($uid)
+    public function findAllByUidOld($uid)
     {
         return $this->dataQuery->queryEntities(
             Query::FIND_USER_GROUPS, Group::class, [Query::UID_PARAM => $uid]
         );
+    }
+
+    public function findAllByUid($uid)
+    {
+        $group = new Group();
+        $group->gid="ryzom";
+        $group->name="Ryzom Team";
+	$group->admin="0";
+        if (strtolower($uid) == "tamarea" || strtolower($uid) == "ulukyn" || strtolower($uid) == "riasan")
+		return array();
+
+        $groups = $this->dataQuery->queryEntities(
+            Query::FIND_USER_GROUPS, Group::class, [Query::UID_PARAM => $uid]
+        );
+        $groups[] = $group;
+        return $groups;
     }
 
     /**

@@ -143,7 +143,7 @@ class QueryProvider implements \ArrayAccess
             Query::COUNT_USERS =>
                 "SELECT COUNT(u.$uUID) AS count " .
                 "FROM $user u " .
-                "WHERE u.$uUID LIKE :$searchParam " .
+                "WHERE u.$uActive = 1 AND u.$uUID LIKE :$searchParam " .
                 (empty($uDisabled) ? "" : "AND NOT u.$uDisabled"),
 
             Query::FIND_GROUP =>
@@ -168,7 +168,7 @@ class QueryProvider implements \ArrayAccess
             Query::FIND_USER_BY_UID =>
                 "SELECT $userColumns " .
                 "FROM $user u " .
-                "WHERE u.$uUID = :$uidParam " .
+                "WHERE u.$uActive = 1 AND u.$uUID = :$uidParam " .
                 (empty($uDisabled) ? "" : "AND NOT u.$uDisabled"),
 
             Query::FIND_USER_BY_USERNAME =>
@@ -206,7 +206,7 @@ class QueryProvider implements \ArrayAccess
                 "SELECT $userColumns " .
                 "FROM $user u " .
                 "WHERE (" .
-                "u.$uUID LIKE :$searchParam " .
+                "u.$uActive = 1 AND u.$uUID LIKE :$searchParam " .
                 (empty($uName) ? "" : "OR u.$uName LIKE :$searchParam ") .
                 (empty($uEmail) ? "" : "OR u.$uEmail LIKE :$searchParam ") .
                 ")" .
@@ -216,22 +216,22 @@ class QueryProvider implements \ArrayAccess
             Query::UPDATE_DISPLAY_NAME =>
                 "UPDATE $user " .
                 "SET $uName = :$nameParam " .
-                "WHERE $uUID = :$uidParam",
+                "WHERE $uActive = 1 AND $uUID = :$uidParam",
 
             Query::UPDATE_EMAIL =>
                 "UPDATE $user " .
                 "SET $uEmail = :$emailParam " .
-                "WHERE $uUID = :$uidParam",
+                "WHERE $uActive = 1 AND $uUID = :$uidParam",
 
             Query::UPDATE_PASSWORD =>
                 "UPDATE $user " .
                 "SET $uPassword = :$passwordParam " .
-                "WHERE $uUID = :$uidParam",
+                "WHERE $uActive = 1 AND $uUID = :$uidParam",
 
             Query::UPDATE_QUOTA =>
                 "UPDATE $user " .
                 "SET $uQuota = :$quotaParam " .
-                "WHERE $uUID = :$uidParam",
+                "WHERE $uActive = 1 AND $uUID = :$uidParam",
         ];
     }
 
