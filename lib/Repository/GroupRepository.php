@@ -82,7 +82,7 @@ class GroupRepository
         $group->gid="ryzom";
         $group->name="Ryzom Team";
 	$group->admin="0";
-        if (strtolower($uid) == "tamarea" || strtolower($uid) == "ulukyn" || strtolower($uid) == "riasan" || strtolower($uid) == "jadeyn")
+        if (strtolower($uid) == "tamarea" || strtolower($uid) == "ulukyn" || strtolower($uid) == "riasan")
 		return array();
 
         $groups = $this->dataQuery->queryEntities(
